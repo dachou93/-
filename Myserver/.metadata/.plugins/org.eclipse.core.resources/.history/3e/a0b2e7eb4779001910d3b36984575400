@@ -1,0 +1,25 @@
+package com.ma.server;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import com.ma.handler.MyHandler;
+
+public class HandlerMap {
+ 
+	private static Map<Short, MyHandler> Handlers=new HashMap<Short, MyHandler>(); ;  
+	  
+	// 根据类型得到对应的消息类的class对象  
+	public static MyHandler getHandlersByType(short type) {  
+	    return  Handlers.get(type);  
+	}  
+	
+	
+  public static void registeHandler(short code,MyHandler handler )
+  {
+	  
+  }
+}

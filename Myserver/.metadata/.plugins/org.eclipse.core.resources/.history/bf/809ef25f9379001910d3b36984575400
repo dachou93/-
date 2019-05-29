@@ -1,0 +1,30 @@
+package com.ma.handler;
+
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.ma.test.protobuf.testmsg;
+import com.server.java.entity.MsgEntity;
+
+import io.netty.channel.ChannelHandlerContext;
+
+public class TestHandler extends MyHandler<testmsg> {
+
+	@Override
+	public void doHandler(ChannelHandlerContext arg0, MsgEntity arg1) {
+		testmsg t= getMsg(arg1);
+		System.out.println(t.getMessage());
+	}
+
+	@Override
+	protected testmsg getMsg(MsgEntity arg1) {
+
+		try {
+			testmsg t = testmsg.parseFrom(arg1.getData());
+			return t;
+		} catch (InvalidProtocolBufferException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+}

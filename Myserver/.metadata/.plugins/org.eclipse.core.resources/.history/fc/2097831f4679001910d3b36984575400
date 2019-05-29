@@ -1,0 +1,25 @@
+package com.ma.server;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import com.ma.handler.iHandler;
+
+public class HandlerMap {
+ 
+	private static Map<Short, Class<? extends iHandler>> typeToMsgClassMap=new HashMap<Short, Class<? extends iHandler>>(); ;  
+	  
+	// 根据类型得到对应的消息类的class对象  
+	public static Class<?> getMsgClassByType(short type) {  
+	    return typeToMsgClassMap.get(type);  
+	}  
+	
+	
+  public static void registeHandler(short code,Class<? extends iHandler> hClass )
+  {
+	  
+  }
+}

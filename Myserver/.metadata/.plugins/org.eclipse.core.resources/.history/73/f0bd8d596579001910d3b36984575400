@@ -1,0 +1,49 @@
+package com.ma.server;
+
+import com.server.java.entity.MsgEntity;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+
+public class NettyMsgDecoder extends LengthFieldBasedFrameDecoder {
+	public NettyMsgDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, int lengthAdjustment,
+			int initialBytesToStrip) {
+		super(maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip);
+		// TODO Auto-generated constructor stub
+	}
+	
+	 public NettyMsgDecoder() {  
+	        this(100000, 0, 4, 2, 4);  //0开始依次为4个字节长度，2个字节的操作码，解码成功后从操作码开始
+	    }  
+
+	@Override
+	protected Object decode(ChannelHandlerContext ctx, ByteBuf byteBuf) throws Exception {
+
+		System.out.println("sd");
+		ByteBuf frame = (ByteBuf) super.decode(ctx, byteBuf);//由父類處理粘包 参数在构造函数中
+		if (frame == null) {
+			return null;
+		}
+		short cmd = frame.readShort();
+       System.out.print(cmd);
+		byte[] data = new byte[frame.readableBytes()];
+		frame.readBytes(data);
+
+		MsgEntity msgVO = new MsgEntity();
+		msgVO.setCmdCode(cmd);
+		msgVO.setData(data);
+		msgVO.setChannel(ctx.channel());
+		return msgVO;
+	}
+	
+	@Override
+	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+		super.handlerAdded(ctx);
+		System.out.println(ctx.channel().id()+"进来了");
+	}
+	
+	
+	
+
+}

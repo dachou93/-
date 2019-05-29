@@ -1,0 +1,9 @@
+package com.server.java.constants;
+
+/**
+ * 鍛戒护鐮佸父閲忔娴�
+ */
+public class CmdConstant {
+	public final static  short NAME_CHECK = 100;
+	public final static short SAY_HELLO = 201;
+}

@@ -1,0 +1,53 @@
+package com.ma.server;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelHandler.Sharable;
+
+@Sharable
+public class Server4HelloWorldHandler extends ChannelInboundHandlerAdapter {
+
+	@Override
+	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+		super.handlerAdded(ctx);
+		System.out.println(ctx.channel().id()+"进来了");
+	}
+	
+	@Override
+	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+		super.handlerRemoved(ctx);
+		System.out.println(ctx.channel().id()+"离开了");
+	}
+
+	
+@Override
+public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+	
+	ByteBuf buf=(ByteBuf) msg;
+	byte[] tempDatas=new byte[buf.readableBytes()];
+	String message=new String(tempDatas,"UTF-8");
+	System.out.println("from client :"+message);
+//	if("exit".equals(message))
+//	{
+//		ctx.close();
+//		return;
+//	}
+	ctx.write(msg); // (1)
+    ctx.flush(); // (2)
+	
+	
+}
+ @Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+	cause.printStackTrace();
+	ctx.close();
+	}
+	
+	
+
+	
+   
+
+}

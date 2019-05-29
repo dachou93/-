@@ -1,0 +1,13 @@
+package com.ma.handler;
+
+import com.server.java.entity.MsgEntity;
+
+import io.netty.channel.ChannelHandlerContext;
+
+public abstract  class MyHandler<T> {
+	protected abstract T getMsgByType(short type);
+	 
+	public abstract void doHandler(ChannelHandlerContext arg0,  MsgEntity arg1);
+	
+	
+}

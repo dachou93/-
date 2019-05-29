@@ -1,0 +1,20 @@
+package com.ma.server;
+
+import com.ma.test.protobuf.Test;
+import com.server.java.entity.MsgEntity;
+
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+
+public class GetProtobufMsg extends ChannelInboundHandlerAdapter {
+	@Override
+	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+		MsgEntity m = (MsgEntity) msg;
+
+		switch (m.getCmdCode()) {
+		case 0:
+          Test
+		}
+
+	}
+}

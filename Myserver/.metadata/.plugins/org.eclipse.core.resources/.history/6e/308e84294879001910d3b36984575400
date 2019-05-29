@@ -1,0 +1,6 @@
+package com.ma.handler;
+
+public abstract  class MyHandler {
+	
+	public abstract <T> T getMsgByTyep(short id);
+}

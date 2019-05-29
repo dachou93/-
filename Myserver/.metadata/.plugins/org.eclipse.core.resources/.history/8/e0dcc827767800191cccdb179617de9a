@@ -1,0 +1,41 @@
+package com.ma.server;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelHandler.Sharable;
+
+@Sharable
+public class Server4HelloWorldHandler extends ChannelInboundHandlerAdapter {
+
+	
+@Override
+public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+
+	ByteBuf readBuffer=(ByteBuf) msg;
+	byte[] tempDatas=new byte[readBuffer.readableBytes()];
+	String message=new String(tempDatas,"UTF-8");
+	System.out.println("from client :"+message);
+	if("exit".equals(message))
+	{
+		ctx.close();
+		return;
+	}
+	String line="server message to client!";
+	ctx.writeAndFlush(Unpooled.copiedBuffer(line.getBytes("UTF-8")));
+	
+	
+}
+ @Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+	cause.printStackTrace();
+	ctx.close();
+	}
+	
+	
+
+	
+   
+
+}

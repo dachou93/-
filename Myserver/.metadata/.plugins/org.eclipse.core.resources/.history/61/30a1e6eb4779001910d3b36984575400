@@ -1,0 +1,6 @@
+package com.ma.handler;
+
+public abstract  class MyHandler {
+	
+	public T 
+}

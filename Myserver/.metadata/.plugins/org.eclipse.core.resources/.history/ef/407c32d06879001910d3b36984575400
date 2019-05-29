@@ -1,0 +1,68 @@
+package com.ma.server;
+
+import java.nio.ByteOrder;
+
+import com.server.java.entity.MsgEntity;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+
+public class NettyMsgDecoder extends LengthFieldBasedFrameDecoder {
+
+	
+	 
+
+	public NettyMsgDecoder(ByteOrder byteOrder, int maxFrameLength, int lengthFieldOffset, int lengthFieldLength,
+			int lengthAdjustment, int initialBytesToStrip, boolean failFast) {
+		super(byteOrder, maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip, failFast);
+		
+	}
+	
+	 public NettyMsgDecoder() {
+		this(ByteOrder.LITTLE_ENDIAN, 100000, 0, 4, 2, 4, true);
+	}
+
+	@Override
+	protected Object decode(ChannelHandlerContext ctx, ByteBuf byteBuf) throws Exception {
+
+		System.out.println("sd");
+		ByteBuf frame = (ByteBuf) super.decode(ctx, byteBuf);//由父類處理粘包 参数在构造函数中
+		if (frame == null) {
+			return null;
+		}
+		System.out.println(frame.readableBytes());
+		
+		byte[] temps=new byte[frame.readableBytes()];
+		frame.readBytes(temps);
+		for(byte b: temps)
+		{
+			System.out.println(b);
+		}
+		short cmd = frame.readShort();
+       System.out.print(cmd);
+		byte[] data = new byte[frame.readableBytes()];
+		frame.readBytes(data);
+
+		MsgEntity msgVO = new MsgEntity();
+		msgVO.setCmdCode(cmd);
+		msgVO.setData(data);
+		msgVO.setChannel(ctx.channel());
+		System.out.print("ddd");
+		return msgVO;
+	}
+	
+	@Override
+	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+		super.handlerAdded(ctx);
+		System.out.println(ctx.channel().id()+"进来了");
+	}
+	 @Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+		// TODO Auto-generated method stub
+		super.exceptionCaught(ctx, cause);
+	}
+	
+	
+
+}

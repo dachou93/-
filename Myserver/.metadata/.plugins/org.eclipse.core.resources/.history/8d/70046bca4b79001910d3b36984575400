@@ -1,0 +1,9 @@
+package com.ma.handler;
+
+import com.server.java.entity.MsgEntity;
+
+import io.netty.channel.ChannelHandlerContext;
+
+public interface doHandler<T> {
+  public void doMyHandler(ChannelHandlerContext arg0, T arg1);
+}

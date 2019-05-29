@@ -1,0 +1,27 @@
+package com.server.java.entity;
+
+
+/**
+ * åå°å¤„ç†é€»è¾‘çš„æ ¸å¿ƒå®ä½“ç±»
+ */
+public class MsgEntity {
+	private short cmdCode;//²Ù×÷´a
+	private byte[] data;//protobuf”µ“şÖ÷ów
+
+	public short getCmdCode() {
+		return cmdCode;
+	}
+
+	public void setCmdCode(short cmdCode) {
+		this.cmdCode = cmdCode;
+	}
+
+	public byte[] getData() {
+		return data;
+	}
+
+	public void setData(byte[] data) {
+		this.data = data;
+	}
+
+}

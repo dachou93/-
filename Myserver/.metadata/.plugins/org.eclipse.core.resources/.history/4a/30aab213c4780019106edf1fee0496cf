@@ -1,0 +1,7 @@
+package com.ma.server;
+
+import io.netty.channel.ChannelInboundHandlerAdapter;
+
+public class LengthDecoder extends ChannelInboundHandlerAdapter {
+
+}

@@ -1,0 +1,29 @@
+package com.ma.server;
+
+import com.server.java.constants.CmdConstant;
+import com.server.java.entity.MsgEntity;
+
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+
+public class MsgEntityHanlder extends SimpleChannelInboundHandler<MsgEntity> {
+
+	@Override
+	protected void channelRead0(ChannelHandlerContext arg0, MsgEntity arg1) throws Exception {
+		if(null==arg1)
+		{
+			return;
+		}
+		short csCommondCode=arg1.getCmdCode();
+		switch (csCommondCode) {
+		case CmdConstant.NAME_CHECK:
+			
+			break;
+
+		default:
+			break;
+		}
+		
+	}
+
+}

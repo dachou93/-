@@ -1,0 +1,28 @@
+package com.ma.server;
+
+import java.util.List;
+
+import com.google.protobuf.MessageLite;
+import com.ma.test.protobuf.Frame;
+
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToMessageCodec;
+
+public class SecondProtobufCodec extends MessageToMessageCodec<Frame, MessageLite> {
+
+	@Override
+	protected void decode(ChannelHandlerContext arg0, Frame arg1, List<Object> arg2) throws Exception {
+		arg2.add(ParseFromUtil.parse(arg1));
+		
+	}
+
+	@Override
+	protected void encode(ChannelHandlerContext arg0, MessageLite arg1, List<Object> arg2) throws Exception {
+		arg2.add(Frame.newBuilder()
+                .setMessageType(arg1.getClass().getSimpleName())
+                .setPayload(arg1.toByteString())
+                .build());
+
+	}
+
+}

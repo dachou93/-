@@ -1,0 +1,50 @@
+package test;
+
+import com.ma.handler.TestHandler;
+import com.ma.server.HandlerMap;
+import com.ma.server.MsgEntityHanlder;
+import com.ma.server.NettyMsgDecoder;
+import com.ma.server.Server4HelloWorld;
+import com.ma.server.Server4HelloWorldHandler;
+import com.server.java.constants.CmdConstant;
+
+import io.netty.channel.ChannelFuture;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+
+public class test {
+
+	public static void main(String[] args) {
+		ChannelFuture future = null;
+		Server4HelloWorld server = null;
+		initHandler();
+		try {
+			server = new Server4HelloWorld();
+			future = server.doAccept(8081,new NettyMsgDecoder(),new MsgEntityHanlder());
+			System.out.print("·þÎñÆ÷Æô¶¯");
+			future.channel().closeFuture().sync();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != future) {
+				try {
+					future.channel().closeFuture().sync();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if(null!=server)
+				{
+					server.release();
+				}
+			}
+		}
+	}
+	
+	
+	public static void initHandler()
+	{
+		
+		HandlerMap.registeHandler(CmdConstant.testMessage, new TestHandler());
+	}
+	
+}

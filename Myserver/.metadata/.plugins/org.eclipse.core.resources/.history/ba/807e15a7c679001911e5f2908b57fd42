@@ -1,0 +1,29 @@
+package test;
+
+import com.ma.handler.TestHandler;
+import com.ma.server.HandlerMap;
+import com.ma.server.MsgEntityHanlder;
+import com.ma.server.NettyMsgDecoder;
+import com.ma.server.Server4HelloWorld;
+import com.ma.server.Server4HelloWorldHandler;
+import com.server.java.constants.CmdConstant;
+
+import io.netty.channel.ChannelFuture;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+
+public class test {
+
+	public static void main(String[] args) {
+		initHandler();
+	    server = new Server4HelloWorld(8081);
+	}
+	
+	
+	public static void initHandler()
+	{
+		
+		HandlerMap.registeHandler(CmdConstant.testMessage, new TestHandler());
+	}
+	
+}

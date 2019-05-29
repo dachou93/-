@@ -1,0 +1,18 @@
+package com.ma.server;
+
+import com.google.protobuf.MessageLite;
+import com.server.java.entity.MsgEntity;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToByteEncoder;
+
+public class NettyMsgEncoder extends MessageToByteEncoder<MsgEntity> {
+
+	@Override
+	protected void encode(ChannelHandlerContext ctx,MsgEntity msg, ByteBuf out) throws Exception {
+		byte[] body = ;
+
+	}
+
+}

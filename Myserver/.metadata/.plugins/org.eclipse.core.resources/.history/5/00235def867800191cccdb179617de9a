@@ -1,0 +1,13 @@
+package com.ma.server;
+
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+
+public class MsgDecoder extends LengthFieldBasedFrameDecoder {
+
+	public MsgDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, int lengthAdjustment,
+			int initialBytesToStrip) {
+		super(maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip);
+		
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.ma.handler;
+
+public interface doHandler {
+  public void doMyHandler();
+}

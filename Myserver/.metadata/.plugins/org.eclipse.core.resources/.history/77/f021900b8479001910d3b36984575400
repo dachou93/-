@@ -1,0 +1,20 @@
+package com.ma.server;
+
+import com.server.java.netty.NettyMsgDecoder;
+import com.server.java.netty.NettyMsgEncoder;
+import com.server.java.netty.ServerHanlder;
+
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.socket.SocketChannel;
+
+public class NettyServerInitializer extends  ChannelInitializer<SocketChannel> {
+
+	@Override
+	protected void initChannel(SocketChannel arg0) throws Exception {
+		arg0.pipeline().addLast("decoder", new NettyMsgDecoder())// 瑙ｇ爜鍣�
+		.addLast("encoder", new NettyMsgEncoder())// 缂栫爜鍣�
+		.addLast("handler", new MsgEntityHanlder() );
+		
+	}
+
+}

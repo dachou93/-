@@ -1,0 +1,14 @@
+package com.ma.handler;
+
+import com.server.java.entity.MsgEntity;
+
+import io.netty.channel.ChannelHandlerContext;
+
+public abstract  class MyHandler<T> {
+	
+	public  abstract <T> T getMsgByTyep(short id);
+	
+	public abstract void doHandler(ChannelHandlerContext arg0, T msg);
+	
+	
+}
