@@ -19,7 +19,7 @@ public class MsgDistribution
     }
     private MsgDistribution()
     { }
-    //消息列表
+    //消息
     private Queue<SocketModel> msgList = new Queue<SocketModel>();
 
     private Queue<Action> actions = new Queue<Action>();
