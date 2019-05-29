@@ -15,6 +15,8 @@ public class gameInputHandler extends baseLogicHandler {
 	public void handleMsg(MsgEntity msgEntity, List<MsgEntity> commandList, AbstractCmdRunnable logicThread) {
 		HandleCmdRunnable	t= (HandleCmdRunnable)logicThread;
 		game_room room= t.getChannelInRoom(msgEntity.getChannel());
+		if(room==null)
+			return;
 		gameinput m=getMsg(msgEntity);
 		room.setClicktype(m.getCode());
 		
