@@ -56,7 +56,7 @@ public class test : MonoBehaviour
     public void closeImg()
     {
         closeCount++;
-        i.gameObject.SetActive(!i.gameObject.activeInHierarchy);
+        i.gameObject.SetActive(false);
         Debug.Log(closeCount);
     }
 

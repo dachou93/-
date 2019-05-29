@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class LoadResources
@@ -31,23 +32,19 @@ public class LoadResources
     }
     public static IEnumerator loadPicture(string name)
     {
-        getPath();
-        var pathname = Application.dataPath + "/StreamingAssets/" + name;
-        var filepath = path + name;
-        //shoupath.text = filepath;
-        using (WWW www = new WWW(filepath))
+        //getPath();
+        //var pathname = Application.dataPath + "/StreamingAssets/" + name;
+        //var filepath = path + name;
+        var uri = new System.Uri(Path.Combine(Application.streamingAssetsPath, "block.jpg"));
+        UnityWebRequest w = new UnityWebRequest(uri);
+        DownloadHandlerTexture texDl = new DownloadHandlerTexture(true);
+        w.downloadHandler = texDl;
+        yield return w.SendWebRequest();
+        if (w.isDone)
         {
-            //shouresult.text = "jzz";
-            yield return www;
-            if (www.error == null)
-            {
-                sp = www.texture;
-                //shouresult.text = "jzcg";
-            }
-            else
-            {
-                //shouresult.text = "jzsb";
-            }
+            sp = texDl.texture;
+            if (sp == null)
+                test.t.closeImg();
         }
     }
     //public static IEnumerator load_editor(string file_name)

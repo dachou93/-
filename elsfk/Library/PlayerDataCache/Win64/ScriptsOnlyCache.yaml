@@ -2,6 +2,8 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - test
+    UnityEditor.TestRunner.dll:
+    - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -31,26 +33,28 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9334}
+      Script: {instanceID: 9330}
     - Class: 114
-      Script: {instanceID: 9336}
+      Script: {instanceID: 9332}
     - Class: 114
-      Script: {instanceID: 9342}
+      Script: {instanceID: 9338}
     - Class: 114
-      Script: {instanceID: 9348}
+      Script: {instanceID: 9344}
     - Class: 114
-      Script: {instanceID: 9356}
+      Script: {instanceID: 9352}
     - Class: 114
-      Script: {instanceID: 9392}
+      Script: {instanceID: 9388}
     - Class: 114
-      Script: {instanceID: 9394}
+      Script: {instanceID: 9390}
     - Class: 114
-      Script: {instanceID: 9792}
+      Script: {instanceID: 9788}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
       Script: {instanceID: 0}
     - Class: 157
+      Script: {instanceID: 0}
+    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -299,18 +303,6 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: UnityEngine.Advertisements.dll
-    namespaceName: UnityEngine.Advertisements
-    className: CallbackExecutor
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: UnityEngine.Advertisements.dll
-    namespaceName: UnityEngine.Advertisements.Editor
-    className: Placeholder
-  - hash:
-      serializedVersion: 2
       Hash: cf9f5cf2c3145a37ac07f00e50e460f9
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -557,7 +549,7 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
-      Hash: d116063f3b698342af433ca22c9ca6cd
+      Hash: 60259fcd3b13b9808164b182afd5d222
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: test
@@ -720,4 +712,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: D:/u3dproject/miniwow/Temp/miniwow.exe
+  playerPath: "D:/\u8F6F\u4EF6/test/miniwow.exe"
