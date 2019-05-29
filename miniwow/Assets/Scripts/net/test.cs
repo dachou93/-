@@ -11,11 +11,13 @@ public class test : MonoBehaviour
     int closeCount;
 
     public showgame s;
+    public Button b;
     private void Awake()
     {
         t = this;
         HandlerMap.registeHandler(100, new testHandler());
         HandlerMap.registeHandler(MsgCode.gameUpdate, new undateMapHandler());
+        b.onClick.AddListener(send);
        
     }
     Connection c = new Connection();
@@ -37,19 +39,12 @@ public class test : MonoBehaviour
 
     public void send()
     {
-        //for (int i = 0; i < 1000; i++)
-        //{
-        //    testmsg t = new testmsg();
-        //    t.Message = "hello"+i.ToString();
-        //    c.Send(100, t);
-        //}
 
         nulldata t = new nulldata();
         c.Send(MsgCode.gameStart, t);
 
         i.gameObject.SetActive(false);
-      var b=  GameObject.Find("Button").GetComponent<Button>();
-        b.onClick.RemoveAllListeners();
+        b.gameObject.SetActive(false);
        
     }
 
