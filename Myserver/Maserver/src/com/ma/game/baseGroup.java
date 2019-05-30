@@ -148,7 +148,7 @@ public abstract class baseGroup {
 				elsfk_groups_movegroup(0, 1);// 操作不合法，返回操作
 				elsfk_groups_updatagrid(map);
 				map.elsfk_globalData_deletefullrows();// 删除满了的行
-				if (!game_globalData.g_elsfk_globalData_isgameover)// 如果游戏没结束就继续产生图形
+				if (!manager.isGameOver())// 如果游戏没结束就继续产生图形
 					manager.Init(game_define.DEFPOSX, game_define.DEFPOSY, map);
 			}
 			elsfk_groups_updatagrid(map);

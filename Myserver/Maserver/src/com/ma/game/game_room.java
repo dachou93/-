@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.AbstractMessage.Builder;
 import com.ma.test.protobuf.gamedata;
+import com.ma.test.protobuf.testmsg;
 import com.server.java.constants.CmdConstant;
 import com.server.java.entity.MsgEntity;
 
@@ -54,6 +55,7 @@ public class game_room {
 		if(manager.isGameOver()==true)
 		{
 			gameState=1;
+			sendMessage(channel,CmdConstant.testMessage,  build_game_over_data());
 			return;
 		}
 		long temp=lastfresh-sysTime;
@@ -120,6 +122,11 @@ public class game_room {
 		b.setField(getField(b.getDescriptorForType(), "row"), game_globalData.g_elsfk_globalData_hight);
 		b.setField(getField(b.getDescriptorForType(), "column"), game_globalData.g_elsfk_globalData_width);
 		b.setField(getField(b.getDescriptorForType(), "data"), d);
+		return b.build().toByteArray();
+	}
+	
+	private byte[] build_game_over_data() {
+		Builder b = testmsg.newBuilder();
 		return b.build().toByteArray();
 	}
 

@@ -8,8 +8,8 @@ public class testHandler : MyHandler
     {
         Google.Protobuf.MessageParser<testmsg> d = new Google.Protobuf.MessageParser<testmsg>(gettestMsg);
         testmsg msg = d.ParseFrom(arg1.Data);
-        //Debug.Log(msg.Message+"輔助");
         MsgDistribution.getInstance().add_action( delegate { doAction(msg); });
+        Debug.Log("游戏概述");
     }
 
     public testmsg gettestMsg()
@@ -20,8 +20,7 @@ public class testHandler : MyHandler
 
     public void doAction(testmsg msg)
     {
-        //Debug.Log(msg.Message+"主");
-        test.t.closeImg();
+        test.t.b.gameObject.SetActive(true);
     }
     
 }
