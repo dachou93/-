@@ -13,6 +13,11 @@ public class gameStartHandler extends baseLogicHandler{
 	public void handleMsg(MsgEntity msgEntity, List<MsgEntity> commandList,AbstractCmdRunnable logicThread) {
 		
 	 HandleCmdRunnable	t= (HandleCmdRunnable)logicThread;
+	 if(t.getChannelInRoom(msgEntity.getChannel())!=null)
+	 {
+		 System.out.println(msgEntity.getChannel().id().toString()+"已经开启一个房间");
+		 return;
+	 }
 	 game_room room=new game_room(500, msgEntity.getChannel(), System.currentTimeMillis());
 	 t.add_room(room);
 	 t.setChannelInRoom(msgEntity.getChannel(), room);

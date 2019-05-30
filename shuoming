@@ -1,2 +1,8 @@
 elsfk 前端unity 2019.1.3f1,只做前端展示。细节啥也没整
 myserve 后端使用netty+protobuf数据传输 俄罗斯方块逻辑在后端逻辑线程中跑 test文件为服务端主入口
+
+io线程接受初步解码消息构建模型存入消息队列，通过LinkedBlockingQueue队列（该队列删除与添加不是互斥 默认大小Integer.MAX_VALUE
+如果超出大小 put方法就会阻塞io线程）
+
+
+服务器启动前会开启一个逻辑线程专门用来处理所有elsfk房间的run方法，玩家进入游戏就会在列表中添加一个游戏房间。由该线程统一调用
