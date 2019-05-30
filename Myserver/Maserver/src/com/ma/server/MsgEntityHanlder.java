@@ -11,7 +11,6 @@ public class MsgEntityHanlder extends SimpleChannelInboundHandler<MsgEntity> {
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext arg0, MsgEntity arg1) throws Exception {
-		System.out.println("handler");
 		if(null==arg1)
 		{
 			return;

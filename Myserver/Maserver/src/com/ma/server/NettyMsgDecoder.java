@@ -25,9 +25,9 @@ public class NettyMsgDecoder extends LengthFieldBasedFrameDecoder {
 		if (frame == null) {
 			return null;
 		}
-		System.out.println(frame.readableBytes());
+//		System.out.println(frame.readableBytes());
 		short cmd = frame.readShort();
-        System.out.println(cmd);
+//        System.out.println(cmd);
 		byte[] data = new byte[frame.readableBytes()];
 		frame.readBytes(data);
 		MsgEntity msgVO = new MsgEntity();

@@ -19,6 +19,7 @@ public class gameInputHandler extends baseLogicHandler {
 			return;
 		gameinput m=getMsg(msgEntity);
 		room.setClicktype(m.getCode());
+		System.out.println(msgEntity.getChannel().id().toString()+"按下按键类型"+m.getCode());
 		
 		
 	}
