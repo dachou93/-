@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using UnityEngine;
 
 public class Connection 
@@ -18,6 +19,7 @@ public class Connection
     //沾包分包
     private Int32 msgLength = 0;
     private byte[] lenBytes = new byte[sizeof(Int32)];
+    private ManualResetEvent timeOutObject;
 
     ///状态
     public enum Status
@@ -27,32 +29,51 @@ public class Connection
     };
     public Status status = Status.None;
 
+    public Connection()
+    {
+        timeOutObject = new ManualResetEvent(false);
+    }
 
     //连接服务端
-    public bool Connect(string host, int port)
+    public void Connect(string host, int port)
     {
-        try
-        {
+       
             //socket
             socket = new Socket(AddressFamily.InterNetwork,
                       SocketType.Stream, ProtocolType.Tcp);
             //Connect
-            socket.Connect(host, port);
-            //BeginReceive
+            socket.BeginConnect(host, port, new AsyncCallback(connectCallBacek), socket);
+        if (!timeOutObject.WaitOne(5000, false)) {
+            socket.Close();
+            Debug.Log("timeOut");
+        }
+    }
+
+    private void connectCallBacek(IAsyncResult asyncResult)
+    {
+        try
+        {
+            socket = asyncResult.AsyncState as Socket;
+            if (socket == null)
+            {
+                return;
+            }
+            socket.EndConnect(asyncResult);
             socket.BeginReceive(readBuff, buffCount,
-                      BUFFER_SIZE - buffCount, SocketFlags.None,
-                      ReceiveCb, readBuff);
+                         BUFFER_SIZE - buffCount, SocketFlags.None,
+                         ReceiveCb, readBuff);
             Debug.Log("连接成功");
             //状态
             status = Status.Connected;
-
-            return true;
         }
         catch (Exception e)
         {
-            Debug.Log("连接失败:" + e.Message);
-            return false;
+            Debug.Log(e.StackTrace.ToString());
         }
+        finally {
+            timeOutObject.Set();
+        }
+
     }
 
     //关闭连接

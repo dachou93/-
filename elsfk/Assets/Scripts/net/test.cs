@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class test : MonoBehaviour
 {
     public static test t;
-
     public Image i;
     int closeCount;
 
@@ -14,21 +14,31 @@ public class test : MonoBehaviour
     public Button b;
     private void Awake()
     {
-        t = this;
+        test.t = this;
         HandlerMap.registeHandler(100, new testHandler());
         HandlerMap.registeHandler(MsgCode.gameUpdate, new undateMapHandler());
         b.onClick.AddListener(send);
-       
+        //开启一个线程用ManualResetEvent阻塞该线程计时 如果超时就停止连接
+        Thread t = new Thread(new ThreadStart(connect));
+        t.Start();
+
     }
-    Connection c = new Connection();
+    Connection c ;
    IEnumerator Start()
     {
-        c.Connect("127.0.0.1", 8081);
         yield return StartCoroutine(LoadResources.loadPicture("block.jpg"));
         s = new showgame();
+
     }
 
-   
+
+    private void connect()
+    {
+        c = new Connection();
+        c.Connect("127.0.0.1", 8081);
+    }
+
+
 
     // Update is called once per frame
     void Update()
@@ -50,7 +60,8 @@ public class test : MonoBehaviour
 
     private void OnDestroy()
     {
-        c.Close();
+        if (c != null)
+            c.Close();
     }
 
     public void closeImg()
@@ -59,7 +70,6 @@ public class test : MonoBehaviour
         i.gameObject.SetActive(false);
         Debug.Log(closeCount);
     }
-
 
 
     public void elsfk_input_changeinput()
