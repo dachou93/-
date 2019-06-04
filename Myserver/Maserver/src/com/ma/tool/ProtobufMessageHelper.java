@@ -82,4 +82,6 @@ public class ProtobufMessageHelper {
     public static Descriptors.FieldDescriptor getField(Descriptors.Descriptor descriptor, String name) {
         return descriptor.findFieldByName(name);
     }
+    
+    
 }
