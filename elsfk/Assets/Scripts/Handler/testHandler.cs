@@ -22,11 +22,15 @@ public class testHandler : MyHandler
     {
         if (msg.Message == "0")
         {
+            test.me = -1;
+        }
+        else if (msg.Message == "1")
+        {
             test.me = 1;
         }
         else
         {
-            test.me = -1;
+            test.t.b.gameObject.SetActive(true);
         }
     }
     

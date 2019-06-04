@@ -7,6 +7,7 @@ import com.google.protobuf.Descriptors;
 import com.google.protobuf.AbstractMessage.Builder;
 import com.ma.test.protobuf.gamedata;
 import com.ma.test.protobuf.gamedata2;
+import com.ma.test.protobuf.testmsg;
 import com.ma.test.protobuf.gamedata2.gamedata1;
 import com.server.java.constants.CmdConstant;
 import com.server.java.entity.MsgEntity;
@@ -101,12 +102,8 @@ public class game_room_2 {
 	}
 
 	public void run(long sysTime) {
-//		if(manager.isGameOver()==true)
-//		{
-//			gameState=1;
-//			sendMessage(channel,CmdConstant.testMessage,  build_game_over_data());
-//			return;
-//		}
+
+		//等待状态
 		if(gameState==0)
 		{
 			for(game_player g:players)
@@ -118,21 +115,23 @@ public class game_room_2 {
 			}
 			return;
 		}
+		
+		//游戏结束
 		if(gameState==2)
 		{
 			return;
 		}
 		
 		
-		
+		//游戏运行中
 		long temp=lastfresh-sysTime;
 		if(!(temp<=0))
 		{
 			return;
 		}
 		lastfresh=sysTime+freshTime;
-		boolean flag=false;
-		boolean flag2=true;
+		boolean flag=false;//玩家是否都在线
+		boolean flag2=true;//玩家是否游戏都结束了
 		for(game_player g:players)
 		{
 			if(g.getChannel().isActive())
@@ -153,6 +152,7 @@ public class game_room_2 {
 		if(flag2)
 		{
 			gameState=2;
+			sendToAllPlayers(CmdConstant.testMessage, build_game_over_data());
 		    return;
 		}
 		
@@ -263,5 +263,11 @@ public class game_room_2 {
 		g.getManager().OnClickkeyboard(clicktype);
 		sendToAllPlayers(CmdConstant.gameUpdate,build_game_data(getdatas()));
 //		sendMessage(channel, CmdConstant.gameUpdate, build_game_data(get_map()));
+	}
+	
+	
+	private byte[] build_game_over_data() {
+		Builder b = testmsg.newBuilder();
+		return b.build().toByteArray();
 	}
 }
