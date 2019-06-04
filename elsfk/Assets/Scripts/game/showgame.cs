@@ -6,6 +6,7 @@ public class showgame
 {
     private Dictionary<string, List<GameObject>> cache = new Dictionary<string, List<GameObject>>();//方块对象池
     private Transform[,] inputoutput_transforms = new Transform[10, 20];//存放小方块数组
+    private Transform[,] inputoutput_transforms2 = new Transform[10, 20];
     private GameObject inputoutput_prefab_gameobject;
     private Sprite[] sps;
     public Texture2D sp;
@@ -20,30 +21,43 @@ public class showgame
         inputoutput_prefab_gameobject.SetActive(false);
     }
 
-    public void elsfk_input_drawgame(int[,] map,gamedata msg)
+    public void elsfk_input_drawgame(int[,] map,int[,] map2)
     {
         //回收所有方块
-        for (int y = 0; y < msg.Row; y++)
+        for (int y = 0; y < 20; y++)
         {
-            for (int x = 0; x < msg.Column; x++)
+            for (int x = 0; x <10; x++)
             {
                 if (inputoutput_transforms[x, y] != null)
                 {
                     intput_collectObject(inputoutput_transforms[x, y].gameObject);
                     inputoutput_transforms[x, y] = null;
+                 
+                }
+                if (inputoutput_transforms2[x, y] != null)
+                {
+                    intput_collectObject(inputoutput_transforms2[x, y].gameObject);
+                    inputoutput_transforms2[x, y] = null;
                 }
             }
         }
-        for (int y = 0; y < msg.Row; y++)
+        for (int y = 0; y < 20; y++)
         {
-            for (int x = 0; x < msg.Column; x++)
+            for (int x = 0; x < 10; x++)
             {
                 //通过对象池创建方块
                 if ( map[x, y] != 0)
                 {
 
-                    GameObject fa = intput_createObject(inputoutput_prefab_gameobject.name, inputoutput_prefab_gameobject, new Vector2(x,y), Quaternion.identity);
+                    GameObject fa = intput_createObject(inputoutput_prefab_gameobject.name, inputoutput_prefab_gameobject, new Vector2(x+(-5*test.me),y), Quaternion.identity);
                     inputoutput_transforms[x, y] = fa.transform;
+
+                    
+                }
+                if (map2[x, y] != 0)
+                {
+                    GameObject fa2 = intput_createObject(inputoutput_prefab_gameobject.name, inputoutput_prefab_gameobject, new Vector2(x + (5 * test.me), y), Quaternion.identity);
+                    inputoutput_transforms2[x, y] = fa2.transform;
                 }
 
             }

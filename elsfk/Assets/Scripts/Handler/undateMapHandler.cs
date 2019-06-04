@@ -5,8 +5,8 @@ public class undateMapHandler : MyHandler
 {
     public override void doHandler(SocketModel arg1)
     {
-        Google.Protobuf.MessageParser<gamedata> d = new Google.Protobuf.MessageParser<gamedata>(getMapMessage);
-        gamedata msg = d.ParseFrom(arg1.Data);
+        Google.Protobuf.MessageParser<gamedata2> d = new Google.Protobuf.MessageParser<gamedata2>(getMapMessage);
+        gamedata2 msg = d.ParseFrom(arg1.Data);
 
         //int[,] map = new int[msg.Row, msg.Column];
         //Debug.Log(msg.Row);
@@ -26,22 +26,25 @@ public class undateMapHandler : MyHandler
         MsgDistribution.getInstance().add_action(delegate { doAction(msg); });
     }
 
-    gamedata getMapMessage()
+    gamedata2 getMapMessage()
     {
-        return new gamedata();
+        return new gamedata2();
     }
 
-    void doAction(gamedata msg)
+    void doAction(gamedata2 msg)
     {
-        int[,] map = new int[msg.Column, msg.Row];
-        for (int i = 0; i < msg.Column; i++)
+        int[,] map = new int[10, 20];
+        int[,] map2 = new int[10, 20];
+        for (int i = 0; i < 10; i++)
         {
-            for (int j = 0; j < msg.Row; j++)
+            for (int j = 0; j < 20; j++)
             {
-                map[i, j] = msg.Data[i * msg.Row + j];
+                map2[i, j] = msg.Datas[0].Data[i * 20 + j];
+                map[i, j] = msg.Datas[1].Data[i * 20 + j];
             }
         }
 
-        test.t.s.elsfk_input_drawgame(map, msg);
+        test.t.s.elsfk_input_drawgame(map,map2);
+        Debug.Log(msg.Datas.Count);
     }
 }

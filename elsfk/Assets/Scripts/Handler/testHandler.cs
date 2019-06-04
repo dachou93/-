@@ -9,7 +9,7 @@ public class testHandler : MyHandler
         Google.Protobuf.MessageParser<testmsg> d = new Google.Protobuf.MessageParser<testmsg>(gettestMsg);
         testmsg msg = d.ParseFrom(arg1.Data);
         MsgDistribution.getInstance().add_action( delegate { doAction(msg); });
-        Debug.Log("游戏概述");
+        Debug.Log(msg.Message);
     }
 
     public testmsg gettestMsg()
@@ -20,7 +20,14 @@ public class testHandler : MyHandler
 
     public void doAction(testmsg msg)
     {
-        test.t.b.gameObject.SetActive(true);
+        if (msg.Message == "0")
+        {
+            test.me = 1;
+        }
+        else
+        {
+            test.me = -1;
+        }
     }
     
 }

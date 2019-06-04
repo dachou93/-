@@ -18,16 +18,16 @@ public class LoadResources
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
         path = "jar:file:///"+Application.dataPath+"!/assets/";
-        shoupingtai.text = "ANDROID";
+       
 #elif UNITY_IPHONE && !UNITY_EDITOR
             path ="file://"+ Application.dataPath  + "/Raw/";
-        shoupingtai.text = "IPHONE";
+        
 #elif UNITY_WINDOWS || UNITY_EDITOR
         path = "file://" + Application.dataPath + "/StreamingAssets/";
-        //shoupingtai.text = "WINDOWS";
+        
 #elif UNITY_WEBGL
         path=Application.dataPath + "/StreamingAssets/";
-        shoupingtai.text = "WEBGL";
+       
 #endif
     }
     public static IEnumerator loadPicture(string name)
