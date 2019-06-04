@@ -35,7 +35,7 @@ public class test : MonoBehaviour
     private void connect()
     {
         c = new Connection();
-        c.Connect("127.0.0.1", 8081);
+        c.Connect("118.31.78.173", 8081);
     }
 
 

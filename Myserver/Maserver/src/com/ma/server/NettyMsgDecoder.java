@@ -1,27 +1,38 @@
 package com.ma.server;
 
+import java.io.IOException;
 import java.nio.ByteOrder;
+
+import javax.imageio.IIOException;
 
 import com.server.java.entity.MsgEntity;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+
 public class NettyMsgDecoder extends LengthFieldBasedFrameDecoder {
 	public NettyMsgDecoder(ByteOrder byteOrder, int maxFrameLength, int lengthFieldOffset, int lengthFieldLength,
 			int lengthAdjustment, int initialBytesToStrip, boolean failFast) {
-		super(byteOrder, maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip, failFast);
-		
+		super(byteOrder, maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip,
+				failFast);
+
 	}
-	
-	 public NettyMsgDecoder() {
+
+	public NettyMsgDecoder() {
 		this(ByteOrder.BIG_ENDIAN, 100000, 0, 4, 2, 4, true);
 	}
 
 	@Override
 	protected Object decode(ChannelHandlerContext ctx, ByteBuf byteBuf) throws Exception {
 
-		ByteBuf frame = (ByteBuf) super.decode(ctx, byteBuf);//由父類處理粘包 参数在构造函数中
+		ByteBuf frame = null;
+		try {
+			frame = (ByteBuf) super.decode(ctx, byteBuf);// 由父類處理粘包 参数在构造函数中
+		} catch (IOException e) {
+//			ctx.channel().close();
+			ctx.close();
+		}
 		if (frame == null) {
 			return null;
 		}
@@ -37,9 +48,5 @@ public class NettyMsgDecoder extends LengthFieldBasedFrameDecoder {
 		frame.release();
 		return msgVO;
 	}
-	
-	
-	
-	
 
 }
